@@ -49,9 +49,12 @@ defmodule Pigeon.GCM do
           end
         _ ->
           fn({reg_ids, payload}) ->
-            {:ok, %HTTPoison.Response{status_code: status, body: body}} =
+            {status, resp} = 
               HTTPoison.post(gcm_uri(), payload, gcm_headers(gcm_key))
 
+            Logger.debug("status: #{inspect status}, resp: #{inspect resp}")
+
+            {:ok, %HTTPoison.Response{status_code: status, body: body}} = {status, resp}
             notification = %{ notification | registration_id: reg_ids }
             process_response(status, body, notification, on_response)
           end
