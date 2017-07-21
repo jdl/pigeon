@@ -13,3 +13,7 @@ config :pigeon, :apns,
 config :pigeon, :adm,
   client_id: System.get_env("ADM_OAUTH2_CLIENT_ID"),
   client_secret: System.get_env("ADM_OAUTH2_CLIENT_SECRET")
+
+config :logger,
+  level: :debug,
+  compile_time_purge_level: :debug
